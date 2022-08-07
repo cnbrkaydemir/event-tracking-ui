@@ -15,6 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventCreatorComponent } from 'src/app/pages/event-creator/event-creator.component';
 import { EventComponent } from 'src/app/pages/event/event.component';
 import { EventListComponent } from 'src/app/pages/event-list/event-list.component';
+import { UserListComponent } from 'src/app/pages/user-list/user-list.component';
+import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -22,6 +24,7 @@ import { EventListComponent } from 'src/app/pages/event-list/event-list.componen
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
     ClipboardModule
@@ -34,7 +37,9 @@ import { EventListComponent } from 'src/app/pages/event-list/event-list.componen
     MapsComponent,
     EventCreatorComponent,
     EventComponent,
+    ProfileComponent,
     EventListComponent,
+    UserListComponent,
     
   ]
 })

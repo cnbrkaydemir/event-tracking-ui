@@ -26,8 +26,9 @@ export class RegisterComponent implements OnInit {
       responseData=>{
         console.log(this.model);
         this.model=<any>responseData.body;
-        registerForm.resetForm();
-        this.router.navigate['login'];
+        this.router.navigate(['/login']);
+        
+        
     },
     err=>{
       console.log(err);

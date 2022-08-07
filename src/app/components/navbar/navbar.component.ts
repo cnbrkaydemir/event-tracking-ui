@@ -41,6 +41,7 @@ export class NavbarComponent implements OnInit {
     window.sessionStorage.removeItem("userdetails");
     window.sessionStorage.removeItem("XSRF-TOKEN");
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 
   }

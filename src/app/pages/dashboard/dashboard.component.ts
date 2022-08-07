@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { Events } from 'src/app/model/events.model';
+import { Users } from 'src/app/model/users.model';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 // core components
 import {
@@ -21,8 +24,18 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
+  public user:Users;
+  public model:Events[];
+  public upcomingMeeting:number=0;
+  public PastMeeting:number=0;
+  
+
+  constructor(private dashboardService:DashboardService){
+
+  }
 
   ngOnInit() {
+    this.getEventList();
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -49,6 +62,8 @@ export class DashboardComponent implements OnInit {
 			options: chartExample1.options,
 			data: chartExample1.data
 		});
+
+    this.getExpired();
   }
 
 
@@ -56,5 +71,38 @@ export class DashboardComponent implements OnInit {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
   }
+
+  async getEventList(){
+    this.user=JSON.parse(<string>sessionStorage.getItem('userdetails'));
+
+    
+   await  this.dashboardService.displayEvents(this.user.userEmail).subscribe(
+      responseData=>{
+        console.log(responseData);
+        
+        this.model=<any>responseData.body;
+        
+        for(let event=0;this.model.length>event; ++event){
+          console.log(this.model[event])
+          if(this.model[event].expired===true){
+            ++this.PastMeeting;
+          }
+          else{
+            ++this.upcomingMeeting;
+          }
+        }
+        
+        
+    },
+    err=>{
+      console.log(err);
+    });
+  }
+
+  getExpired(){
+    
+    
+  }
+
 
 }

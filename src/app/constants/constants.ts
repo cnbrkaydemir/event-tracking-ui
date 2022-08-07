@@ -8,6 +8,8 @@ export const  AppConstants = {
     REGISTER_API_URL : "/register",
     DISPLAY_ALL_USER_API_URL : "/displayAllUsers",
     DISPLAY_EVENT_USER_API_URL : "/displayEventUsers",
+    DISPLAY_USER_API_URL: "/displayUser",
+    DISPLAY_ABSENT_API_URL:"/displayAbsent",
 
     
 }

@@ -17,11 +17,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit() {
+    
   }
   ngOnDestroy() {
   }
 
   validateUser(loginForm: NgForm) {
+    
     this.loginService.validateLoginDetails(this.model).subscribe(
       responseData => {
         

@@ -1,3 +1,5 @@
+import { Users } from "./users.model";
+
 export class Events{
     
     public eventId:number|undefined;
@@ -5,13 +7,13 @@ export class Events{
     public eventDescription:string|undefined;
     public eventDate:Date|undefined;
     public eventExpired:Date|undefined;
-    public created_by:Object|undefined;
+    public created_by:Users|undefined;
     public participants:Object[]|undefined;
-    public isExpired:boolean;
+    public expired:boolean;
     
     
     constructor(eventId?:number, eventTitle?:string, eventDesc?:string, eventDate?:Date,eventExpire?:Date,
-        created_by?:Object,users?:Object[]){
+        created_by?:Users,users?:Object[]){
             this.eventId=eventId;
             this.eventTitle=eventTitle;
             this.eventDescription=eventDesc;
@@ -19,7 +21,7 @@ export class Events{
             this.eventExpired=eventExpire;
             this.created_by=created_by;
             this.participants=users;
-            this.isExpired=false;
+            this.expired=false;
         }
     
     

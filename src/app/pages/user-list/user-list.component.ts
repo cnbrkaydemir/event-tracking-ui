@@ -6,7 +6,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { UserDto } from 'src/app/model/user-dto.component.model';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-list',
@@ -56,6 +56,7 @@ this.getAbsent(this.target);
     }
   )
 }
+
 submit() {
   let arr:number[];
   arr=this.form.value.selectedUsers;
@@ -64,9 +65,10 @@ submit() {
 
   this.dashboardService.addUser(this.dto).subscribe(
     responseData=>{
-      console.log(responseData);
+      Swal.fire('Added', 'You have added specified users to this event', 'success').then(()=>{
+        this.router.navigate(['event-list']);
+      })
       
-      this.router.navigate(['/event-list']);
     },
     err=>{
       console.log(err);

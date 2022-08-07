@@ -12,7 +12,7 @@
       <div class="col">
         <div class="card shadow">
           <div class="card-header border-0">
-            <h3 class="mb-0">Events table</h3>
+            <h3 class="mb-0">Upcoming Events</h3>
           </div>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
@@ -28,7 +28,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let event of model">
-                  <th scope="row">
+                  <th scope="row" *ngIf="!event.expired">
                     <div class="media align-items-center">
                       <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                         <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
@@ -40,18 +40,18 @@
                     </a>
                     </div>
                   </th>
-                  <td>
+                  <td *ngIf="!event.expired">
                     {{event.eventDescription}}
                   </td>
-                  <td>
+                  <td *ngIf="!event.expired">
                     <span class="badge badge-dot mr-4">
                       {{event.eventDate}}
                     </span>
                   </td>
-                  <td>
+                  <td *ngIf="!event.expired">
                     {{event.eventExpired}}
                   </td>
-                  <td>
+                  <td *ngIf="!event.expired">
                     <div class="d-flex align-items-center">
                       <span class="mr-2">{{event.created_by.userName+' '+event.created_by.userSurname}}</span>
                       <div>
@@ -59,7 +59,7 @@
                       </div>
                     </div>
                   </td>
-                  <td class="text-right">
+                  <td class="text-right" *ngIf="!event.expired">
                     <div ngbDropdown placement="bottom-right">
                       <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
                         <i class="fas fa-ellipsis-v"></i>
@@ -106,6 +106,77 @@
     </div>
 
    
-    <div class="row mt-5">
+    <!-- Dark table -->
+  <div class="row mt-5">
+    <div class="col">
+      <div class="card bg-default shadow">
+        <div class="card-header bg-transparent border-0">
+          <h3 class="text-white mb-0">Past Events</h3>
+        </div>
+        <div class="table-responsive mb-5">
+          <table class="table align-items-center table-dark table-flush">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Created By</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of model">
+                <th scope="row" *ngIf="event.expired">
+                  <div class="media align-items-center">
+                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                      <img alt="Image placeholder" src="../assets/img/theme/sketch.jpg">
+                    </a>
+                    <a [routerLink]="['/event',event.eventId]">
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{event.eventTitle}}</span>
+                    </div>
+                  </a>
+                  </div>
+                </th>
+                <td *ngIf="event.expired">
+                  {{event.eventDescription}}
+                </td>
+                <td *ngIf="event.expired">
+                  <span class="badge badge-dot mr-4">
+                    {{event.eventDate}}
+                  </span>
+                </td>
+                <td *ngIf="event.expired">
+                  {{event.eventExpired}}
+                </td>
+                <td *ngIf="event.expired">
+                  <div class="d-flex align-items-center">
+                    <span class="mr-2">{{event.created_by.userName+' '+event.created_by.userSurname}}</span>
+                    <div>
+                      
+                    </div>
+                  </div>
+                </td>
+                <td class="text-right" *ngIf="event.expired">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <a class="dropdown-item" href="javascript:void(0)">Action</a>
+                      <a class="dropdown-item" href="javascript:void(0)">Another action</a>
+                      <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+          </table>
+        </div>
+        
+
       </div>
-  
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/model/users.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -26,9 +27,17 @@ export class RegisterComponent implements OnInit {
       responseData=>{
         console.log(this.model);
         this.model=<any>responseData.body;
-        this.router.navigate(['/login']);
         
-        
+        Swal.fire({
+          title: 'Successfully Registered',
+          text: 'You haven been registered successfully',
+          icon: 'success',
+          confirmButtonText: 'Redirect to login page'
+        })
+        .then(()=>{
+          this.router.navigate(['/login']);
+      })
+
     },
     err=>{
       console.log(err);

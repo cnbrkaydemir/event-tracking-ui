@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Users } from 'src/app/model/users.model';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -29,14 +30,27 @@ export class LoginComponent implements OnInit, OnDestroy {
         
         window.sessionStorage.setItem("Authorization",responseData.headers.get('Authorization'));
         this.model = <any> responseData.body;
+        
         this.model.authStatus = 'AUTH';
         window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
       
         
         this.router.navigate(['dashboard']);
         loginForm.resetForm();
+        Swal.fire('Success', `You are logged in as ${this.model.userName} ${this.model.userSurname}` , 'success');
+
       }, error => {
         console.log(error);
+        loginForm.resetForm();
+        this.router.navigate(['/login']);
+        Swal.fire('Invalid Login', 'Wrong email or password', 'warning').then(()=>{
+          window.location.reload();
+        }
+          
+        )
+        
+        
+        
       });
 
   }

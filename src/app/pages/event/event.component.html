@@ -42,7 +42,7 @@
                     <h5 class="card-title text-uppercase text-muted mb-0">Event End Date</h5>
                     <span class="h2 font-weight-bold mb-0">{{model.eventExpired}}</span>
                   </div>
-                  <div class="col-auto">
+                  <div class="col-auto float-right">
                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
                       <i class="fas fa-chart-pie"></i>
                     </div>
@@ -104,8 +104,8 @@
                   <th scope="col">Name</th>
                   <th scope="col">Surname</th>
                   <th scope="col">Email</th>
-                  <th scope="col">View Profile</th>
-                  <th scope="col" *ngIf="(users.userRole==='admin')">Remove Users</th>
+                  <th scope="col">Profile</th>
+                  <th scope="col" *ngIf="(users.userRole==='admin')">Remove</th>
                 </tr>
               </thead>
               <tbody>
@@ -129,16 +129,23 @@
                     {{user.userEmail}}
                   </td>
                   <td>
-                  <button class="ni ni-circle-08" [routerLink]="['/profile',user.userId]"
-                  *ngIf="users.userId != user.userId"></button>
 
-                  <button class="ni ni-circle-08" [routerLink]="['/user-profile']"
-                  *ngIf="users.userId === user.userId"></button>
+                    <a routerLinkActive="active" [routerLink]="['/profile',user.userId]" class="nav-link"
+                    *ngIf="users.userId != user.userId">
+                  <i class="ni ni-circle-08"></i>
+              </a>
+
+              <a routerLinkActive="active" [routerLink]="['/user-profile']" class="nav-link"
+              *ngIf="users.userId === user.userId">
+            <i class="ni ni-circle-08"></i>
+            </a>
                   </td>
 
                   <td>
-                    <button class="ni ni-fat-remove" (click)="discardUser(user.userId)"
-                    *ngIf="(users.userId != user.userId) && (users.userRole==='admin')" ></button>
+                    <button class="btn btn primary"    (click)="discardUser(user.userId)"
+                    *ngIf="(users.userId != user.userId) && (users.userRole==='admin')" >
+                    <i class="ni ni-fat-remove"></i>
+                    </button>
                   </td>
                 
                 </tr>

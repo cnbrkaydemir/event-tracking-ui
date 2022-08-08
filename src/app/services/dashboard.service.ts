@@ -55,5 +55,9 @@ export class DashboardService {
     return this.http.post(environment.rooturl + AppConstants.DISPLAY_ABSENT_API_URL,id,{ observe: 'response',withCredentials: true });
   }
 
+  getMonth(id:number){
+    return this.http.post(environment.rooturl + AppConstants.DISPLAY_MONTH_API_URL,id,{ observe: 'response',withCredentials: true });
+  }
+
 
 }

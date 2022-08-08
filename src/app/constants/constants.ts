@@ -10,6 +10,7 @@ export const  AppConstants = {
     DISPLAY_EVENT_USER_API_URL : "/displayEventUsers",
     DISPLAY_USER_API_URL: "/displayUser",
     DISPLAY_ABSENT_API_URL:"/displayAbsent",
+    DISPLAY_MONTH_API_URL:"/getParticipationMonth",
 
     
 }

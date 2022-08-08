@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { Events } from 'src/app/model/events.model';
 import { Users } from 'src/app/model/users.model';
@@ -15,7 +15,8 @@ import {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+
 })
 export class DashboardComponent implements OnInit {
 
@@ -28,14 +29,40 @@ export class DashboardComponent implements OnInit {
   public model:Events[];
   public upcomingMeeting:number=0;
   public PastMeeting:number=0;
-  
+  public monthCount=[];
 
-  constructor(private dashboardService:DashboardService){
+  public months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+
+
+  constructor(private dashboardService:DashboardService,private cd: ChangeDetectorRef){
 
   }
 
   ngOnInit() {
+
+    
+    
     this.getEventList();
+
+    
+    this.getOrders();
+
+    
+    
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -44,16 +71,7 @@ export class DashboardComponent implements OnInit {
     this.data = this.datasets[0];
 
 
-    var chartOrders = document.getElementById('chart-orders');
-
     parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
 
     var chartSales = document.getElementById('chart-sales');
 
@@ -63,7 +81,7 @@ export class DashboardComponent implements OnInit {
 			data: chartExample1.data
 		});
 
-    this.getExpired();
+    
   }
 
 
@@ -76,33 +94,79 @@ export class DashboardComponent implements OnInit {
     this.user=JSON.parse(<string>sessionStorage.getItem('userdetails'));
 
     
-   await  this.dashboardService.displayEvents(this.user.userEmail).subscribe(
-      responseData=>{
+     this.dashboardService.displayEvents(this.user.userEmail).subscribe(
+       (responseData)=>{
         console.log(responseData);
         
-        this.model=<any>responseData.body;
+        this.model= <any> responseData.body;
         
         for(let event=0;this.model.length>event; ++event){
-          console.log(this.model[event])
+             
           if(this.model[event].expired===true){
             ++this.PastMeeting;
           }
           else{
             ++this.upcomingMeeting;
           }
-        }
-        
-        
+        } 
     },
     err=>{
       console.log(err);
     });
   }
 
-  getExpired(){
+
+
+
+ async getMonthCount(){
+  
+ 
+    
+}
+
+async getOrders(){
+  await this.dashboardService.getMonth(this.user.userId).subscribe(
+    responseData=>{
+      console.log(responseData);
+      
+      this.monthCount=<any>responseData.body;
+      
+      let reference:Date=new Date();
+  
+   
+      var chartOrders = document.getElementById('chart-orders');
+    
+      console.log(this.monthCount);
+      
     
     
-  }
+      var ordersChart = new Chart(chartOrders, {
+        type: 'bar',
+        options: chartExample2.options,
+        data:  {
+          labels: [this.months[reference.getMonth()], this.months[reference.getMonth()+1],this.months[reference.getMonth()+2], this.months[reference.getMonth()+3]],
+          datasets: [
+            {
+              label: "Events",
+              data: this.monthCount,
+              maxBarThickness: 10
+            }
+          ]
+        }
+      });
+         
+
+    },
+    err=>{
+      console.log(err);
+      
+    }
+  );
+
+  
+}
 
 
 }
+
+

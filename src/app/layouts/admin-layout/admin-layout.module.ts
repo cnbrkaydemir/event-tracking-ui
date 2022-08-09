@@ -17,6 +17,8 @@ import { EventComponent } from 'src/app/pages/event/event.component';
 import { EventListComponent } from 'src/app/pages/event-list/event-list.component';
 import { UserListComponent } from 'src/app/pages/user-list/user-list.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
+
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -27,7 +29,8 @@ import { ProfileComponent } from 'src/app/pages/profile/profile.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+    CalendarModule
   ],
   declarations: [
     DashboardComponent,

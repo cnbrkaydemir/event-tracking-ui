@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { Events } from 'src/app/model/events.model';
+import { UserParticipation } from 'src/app/model/user-participation.model';
 import { Users } from 'src/app/model/users.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
@@ -27,9 +28,12 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
   public user:Users;
   public model:Events[];
+  public allEvents :Events[];
   public upcomingMeeting:number=0;
   public PastMeeting:number=0;
   public monthCount=[];
+  public userInfos:UserParticipation[];
+  public upcomingEvents:Events[];
 
   public months = [
     'January',
@@ -62,7 +66,11 @@ export class DashboardComponent implements OnInit {
     this.getOrders();
 
     
-    
+    this.getAllEvents();
+
+    this.getUserDetails();
+
+    this.getUpcoming();
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -116,14 +124,6 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
-
- async getMonthCount(){
-  
- 
-    
-}
-
 async getOrders(){
   await this.dashboardService.getMonth(this.user.userId).subscribe(
     responseData=>{
@@ -164,6 +164,50 @@ async getOrders(){
   );
 
   
+}
+async getAllEvents(){
+  
+  this.dashboardService.displayAllEvents().subscribe(
+    responseData=>{
+      console.log(responseData);
+      this.allEvents=<any>responseData;
+    },
+    err=>{
+      console.log(err);      
+    }
+  )
+ 
+    
+}
+
+async getUserDetails(){
+this.dashboardService.displayAllUsers().subscribe(
+  responseData=>{
+    this.userInfos=<any> responseData;
+    console.log(this.userInfos);
+    
+  },
+  err=>{
+    console.log(err);
+    
+  }
+)
+
+}
+
+
+async getUpcoming(){
+  this.user=JSON.parse(<string>sessionStorage.getItem('userdetails'));
+
+  this.dashboardService.getUpcoming(this.user.userId).subscribe(
+    responseData=>{
+      this.upcomingEvents=<any>responseData.body;      
+    },
+    err=>{
+      console.log(err);
+      
+    }
+  )
 }
 
 

@@ -9,7 +9,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { XhrInterceptor } from './interceptor/interceptor';
@@ -20,6 +20,7 @@ import { AuthActivateRouteGuard } from './routeguard/auth.routeguard';
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    CalendarModule,
     HttpClientModule,
     ComponentsModule,
     NgbModule,

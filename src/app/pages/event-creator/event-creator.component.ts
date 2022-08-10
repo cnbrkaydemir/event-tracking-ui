@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Events } from 'src/app/model/events.model';
 import { Users } from 'src/app/model/users.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-event-creator',
@@ -27,7 +27,17 @@ public adminUser:Users;
       responseData=>{
         this.model=<any>responseData.body;
         eventForm.resetForm();
-        this.router.navigate(['/event-list']);
+        Swal.fire({
+          title: 'Successfully Created New Event',
+          text: 'Now you can start adding new users',
+          icon: 'success',
+          confirmButtonText: 'Redirect to events'
+        })
+        .then(()=>{
+          this.router.navigate(['/event-list']);
+      })
+        
+        
     },
     err=>{
       console.log(err);

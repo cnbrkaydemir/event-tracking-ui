@@ -36,16 +36,16 @@
           </div>
           <div class="text-center">
             <h3>
-              {{user.userName}}<span class="font-weight-light">, 20</span>
+              {{user.userName}}<span class="font-weight-light">, {{age}} </span>
             </h3>
             <div class="h5 font-weight-300">
-              <i class="ni location_pin mr-2"></i>Ankara, Turkey
+              <i class="ni location_pin mr-2"></i>{{location}}
             </div>
             <div class="h5 mt-4">
               <i class="ni business_briefcase-24 mr-2"></i>Computer Engineer
             </div>
             <div>
-              <i class="ni education_hat mr-2"></i>Ted University
+              <i class="ni education_hat mr-2"></i>{{university}}
             </div>
             <hr class="my-4" />
           </div>
@@ -69,13 +69,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">Email</label>
-                    <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Username" value={{user.userEmail}}>
+                    <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Username" value={{user.userEmail}} disabled>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-role">Role</label>
-                    <input type="text" id="input-role" class="form-control form-control-alternative" value={{user.userRole}}>
+                    <input type="text" id="input-role" class="form-control form-control-alternative" value={{user.userRole}} disabled>
                   </div>
                 </div>
               </div>
@@ -83,13 +83,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">First name</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value={{user.userName}}>
+                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value={{user.userName}} disabled>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Last name</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value={{user.userSurname}}>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value={{user.userSurname}} disabled>
                   </div>
                 </div>
               </div>

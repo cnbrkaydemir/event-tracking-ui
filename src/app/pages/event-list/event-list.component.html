@@ -13,6 +13,12 @@
         <div class="card shadow">
           <div class="card-header border-0">
             <h3 class="mb-0">Upcoming Events</h3>
+              <div class="col ">
+                  <button class="btn btn-primary float-right" *ngIf="user.userRole==='admin'" 
+                  [routerLink]="['/event-creator']">
+                    Create New Event
+                  </button>
+              </div>
           </div>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
@@ -26,9 +32,9 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr *ngFor="let event of model">
-                  <th scope="row" *ngIf="!event.expired">
+              <tbody *ngIf="upcomingEvents">
+                <tr *ngFor="let event of upcomingEvents">
+                  <th scope="row" >
                     <div class="media align-items-center">
                       <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                         <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
@@ -40,18 +46,18 @@
                     </a>
                     </div>
                   </th>
-                  <td *ngIf="!event.expired">
+                  <td >
                     {{event.eventDescription}}
                   </td>
-                  <td *ngIf="!event.expired">
+                  <td >
                     <span class="badge badge-dot mr-4">
                       {{event.eventDate}}
                     </span>
                   </td>
-                  <td *ngIf="!event.expired">
+                  <td >
                     {{event.eventExpired}}
                   </td>
-                  <td *ngIf="!event.expired">
+                  <td >
                     <div class="d-flex align-items-center">
                       <span class="mr-2">{{event.created_by.userName+' '+event.created_by.userSurname}}</span>
                       <div>
@@ -59,20 +65,30 @@
                       </div>
                     </div>
                   </td>
-                  <td class="text-right" *ngIf="!event.expired">
+                  <td class="text-right" >
                     <div ngbDropdown placement="bottom-right">
                       <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="javascript:void(0)">Action</a>
-                        <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-                        <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
+                        <a class="dropdown-item" [routerLink]="['/event',event.eventId]"  >View Event</a>
+                        <a *ngIf="user.userId != event.created_by.userId" class="dropdown-item" [routerLink]="['/profile',event.created_by.userId]">View Event Owner</a>
+                        <a *ngIf="user.userId === event.created_by.userId" class="dropdown-item" [routerLink]="['/user-profile']">View Event Owner</a>
                       </div>
                     </div>
                   </td>
                 </tr>
                 </tbody>
+                <tbody *ngIf="upcomingEvents.length===0">
+                  <tr>
+                    <th scope="row" >
+                      <h1 class="text-light bg-transparent">
+                      No Upcoming event to display!
+                    </h1>
+                    </th>
+                  </tr>
+                </tbody>
+
             </table>
           </div>
 
@@ -125,9 +141,9 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let event of model">
-                <th scope="row" *ngIf="event.expired">
+            <tbody *ngIf="pastEvents">
+              <tr *ngFor="let event of pastEvents">
+                <th scope="row" >
                   <div class="media align-items-center">
                     <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                       <img alt="Image placeholder" src="../assets/img/theme/sketch.jpg">
@@ -139,18 +155,18 @@
                   </a>
                   </div>
                 </th>
-                <td *ngIf="event.expired">
+                <td >
                   {{event.eventDescription}}
                 </td>
-                <td *ngIf="event.expired">
+                <td >
                   <span class="badge badge-dot mr-4">
                     {{event.eventDate}}
                   </span>
                 </td>
-                <td *ngIf="event.expired">
+                <td >
                   {{event.eventExpired}}
                 </td>
-                <td *ngIf="event.expired">
+                <td >
                   <div class="d-flex align-items-center">
                     <span class="mr-2">{{event.created_by.userName+' '+event.created_by.userSurname}}</span>
                     <div>
@@ -158,19 +174,28 @@
                     </div>
                   </div>
                 </td>
-                <td class="text-right" *ngIf="event.expired">
+                <td class="text-right" >
                   <div ngbDropdown placement="bottom-right">
                     <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
                       <i class="fas fa-ellipsis-v"></i>
                     </a>
                     <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" href="javascript:void(0)">Action</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
+                      <a class="dropdown-item" [routerLink]="['/event',event.eventId]"  >View Event</a>
+                        <a *ngIf="user.userId != event.created_by.userId" class="dropdown-item" [routerLink]="['/profile',event.created_by.userId]">View Event Owner</a>
+                        <a *ngIf="user.userId === event.created_by.userId" class="dropdown-item" [routerLink]="['/user-profile']">View Event Owner</a>
                     </div>
                   </div>
                 </td>
               </tr>
+              </tbody>
+              <tbody *ngIf="pastEvents.length===0">
+                <tr>
+                  <th scope="row" >
+                    <h1 class="text-light">
+                    No past event to display!
+                  </h1>
+                  </th>
+                </tr>
               </tbody>
           </table>
         </div>

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { EventInfo } from 'src/app/model/event-info.model';
 import { Events } from 'src/app/model/events.model';
 import { UserParticipation } from 'src/app/model/user-participation.model';
 import { Users } from 'src/app/model/users.model';
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
   public PastMeeting:number=0;
   public monthCount=[];
   public userInfos:UserParticipation[];
-  public upcomingEvents:Events[];
+  public upcomingEvents:EventInfo[];
 
   public months = [
     'January',
@@ -72,22 +73,11 @@ export class DashboardComponent implements OnInit {
 
     this.getUpcoming();
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
-
+    
 
     parseOptions(Chart, chartOptions());
 
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+   
 
     
   }
@@ -102,7 +92,7 @@ export class DashboardComponent implements OnInit {
     this.user=JSON.parse(<string>sessionStorage.getItem('userdetails'));
 
     
-     this.dashboardService.displayEvents(this.user.userEmail).subscribe(
+     this.dashboardService.displayEvents(this.user.userId).subscribe(
        (responseData)=>{
         console.log(responseData);
         
@@ -199,9 +189,14 @@ this.dashboardService.displayAllUsers().subscribe(
 async getUpcoming(){
   this.user=JSON.parse(<string>sessionStorage.getItem('userdetails'));
 
-  this.dashboardService.getUpcoming(this.user.userId).subscribe(
+  await this.dashboardService.getUpcoming(this.user.userId).subscribe(
     responseData=>{
-      this.upcomingEvents=<any>responseData.body;      
+
+      let ref= new Date();
+            
+      this.upcomingEvents=<any>responseData.body;
+      
+      
     },
     err=>{
       console.log(err);

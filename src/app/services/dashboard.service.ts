@@ -30,8 +30,8 @@ export class DashboardService {
     return this.http.post(environment.rooturl + AppConstants.DISPLAY_USER_API_URL,id,{ observe: 'response',withCredentials: true });
   }
 
-  displayEvents(email:string){
-    return this.http.post(environment.rooturl + AppConstants.DISPLAY_EVENTS_API_URL,email,{ observe: 'response',withCredentials: true });
+  displayEvents(id:number){
+    return this.http.post(environment.rooturl + AppConstants.DISPLAY_EVENTS_API_URL,id,{ observe: 'response',withCredentials: true });
   }
 
   displayAllEvents(){
@@ -63,5 +63,8 @@ export class DashboardService {
     return this.http.post(environment.rooturl + AppConstants.DISPLAY_UPCOMING_API_URL,id,{ observe: 'response',withCredentials: true });
   }
 
+  grantAdmin(id:number){
+    return this.http.post(environment.rooturl + AppConstants.GRANT_ADMIN_API_URL,id,{ observe: 'response',withCredentials: true });
+  }
 
 }

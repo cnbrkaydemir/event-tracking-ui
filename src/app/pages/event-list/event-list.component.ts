@@ -12,7 +12,8 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 })
 export class EventListComponent implements OnInit {
 public model:Events[];
-
+public pastEvents:Events[]=new Array;
+public upcomingEvents:Events[]= new Array;
 public user:Users;
 
   constructor(private dashboardService:DashboardService) { }
@@ -25,17 +26,27 @@ public user:Users;
     this.user=JSON.parse(<string>sessionStorage.getItem('userdetails'));
 
     
-   await  this.dashboardService.displayEvents(this.user.userEmail).subscribe(
+   await  this.dashboardService.displayEvents(this.user.userId).subscribe(
       responseData=>{
         console.log(responseData);
         
         this.model=<any>responseData.body;
+
+        this.model.forEach(model=>{
+          if(!model.expired){
+            this.upcomingEvents.push(model);
+          }
+          else{
+            this.pastEvents.push(model);
+          }
+        })
         
     },
     err=>{
       console.log(err);
     });
   }
+  
   }
 
 

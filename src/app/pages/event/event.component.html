@@ -7,12 +7,12 @@
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
-                  <div class="col">
+                  <div class="col float-left">
                     <h5 class="card-title text-uppercase text-muted mb-0">Event Title</h5>
                     <span class="h2 font-weight-bold mb-0">{{model.eventTitle}}</span>
                   </div>
-                  <div class="col-auto">
-                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                  <div class="col-auto float-right">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow ">
                       <i class="fas fa-chart-bar"></i>
                     </div>
                   </div>
@@ -61,8 +61,8 @@
                     <span class="h2 font-weight-bold mb-0">{{model.created_by.userName+' '+model.created_by.userSurname}}</span>
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fas fa-chart-pie"></i>
+                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                      <i class="fas fa-chart-bar"></i>
                     </div>
                   </div>
                 </div>
@@ -88,7 +88,7 @@
                   <h3 class="mb-0">Attendees</h3>
                 </div>
                 <div class="col ">
-                  <button class="btn btn-dark float-right" *ngIf="users.userRole==='admin'" 
+                  <button class="btn btn-danger float-right" *ngIf="users.userRole==='admin'" 
                   [routerLink]="['/user-list',target]">
                     Add New Users
                   </button>

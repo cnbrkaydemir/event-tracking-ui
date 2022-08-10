@@ -10,10 +10,11 @@ export class Events{
     public created_by:Users|undefined;
     public participants:Object[]|undefined;
     public expired:boolean;
+    public dueDate:number;
     
     
     constructor(eventId?:number, eventTitle?:string, eventDesc?:string, eventDate?:Date,eventExpire?:Date,
-        created_by?:Users,users?:Object[]){
+        created_by?:Users,users?:Object[],dueDate?:number){
             this.eventId=eventId;
             this.eventTitle=eventTitle;
             this.eventDescription=eventDesc;
@@ -22,7 +23,11 @@ export class Events{
             this.created_by=created_by;
             this.participants=users;
             this.expired=false;
+            this.dueDate=dueDate;
+        
         }
+
+        
     
     
     
